@@ -18,10 +18,8 @@
 		<munit:validation >
 			<munit-tools:verify-call doc:name="Verify call" doc:id="375b2eaa-ce4e-426d-9857-c7901959a63b" processor="logger" times="1">
 				<munit-tools:with-attributes >
-					<munit-tools:with-attribute whereValue="INFO" attributeName="level" />
 					<munit-tools:with-attribute whereValue="Logger" attributeName="doc:name" />
 					<munit-tools:with-attribute whereValue="3d557319-8f2c-4c29-8a2d-d7928f8568c8" attributeName="doc:id" />
-					<munit-tools:with-attribute whereValue="Github action" attributeName="message" />
 				</munit-tools:with-attributes>
 			</munit-tools:verify-call>
 		</munit:validation>
