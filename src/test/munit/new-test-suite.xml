@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="new-test-suite.xml" />
+	<munit:test name="new-test-suite-mule-github-actionsFlowTest" doc:id="8783bcf3-8825-4956-b348-a2e332c74ca9" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="c16b7413-6cab-4618-af2f-9653fa7b42bc" >
+				<munit:payload value="test" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to mule-github-actionsFlow" doc:id="a96cdef0-5a31-4d36-9473-4fc5fe87aa61" name="mule-github-actionsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="375b2eaa-ce4e-426d-9857-c7901959a63b" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="INFO" attributeName="level" />
+					<munit-tools:with-attribute whereValue="Logger" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="3d557319-8f2c-4c29-8a2d-d7928f8568c8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="Github action" attributeName="message" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
