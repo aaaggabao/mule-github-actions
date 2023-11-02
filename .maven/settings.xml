@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<?xml version="1.0"?>
+<settings>
+
     <pluginGroups>
+        <pluginGroup>org.mule.tools</pluginGroup>
     </pluginGroups>
-    <proxies>
-    </proxies>
     <servers>
         <server>
             <id>mulesoft-ee</id>
@@ -13,52 +11,26 @@
             <password>${env.NEXUS_PASSWORD}</password>
         </server>
     </servers>
-    <mirrors>
-    </mirrors>
     <profiles>
         <profile>
-            <id>baseProfile</id>
-            <properties>
-            </properties>
+            <id>Mule</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <repositories>
                 <repository>
-                    <id>anypoint-exchange</id>
-                    <name>Anypoint Exchange</name>
-                    <url>https://maven.anypoint.mulesoft.com/api/v1/maven</url>
-                    <layout>default</layout>
-                </repository>
-                <repository>
-                    <id>mulesoft-releases</id>
-                    <name>MuleSoft Releases Repository</name>
-                    <url>https://repository.mulesoft.org/releases/</url>
-                    <layout>default</layout>
-                </repository>
-                <repository>
                     <id>mulesoft-ee</id>
-                    <name>MuleSoft EE Repository</name>
+                    <name>MuleRepository</name>
                     <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
                     <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
                 </repository>
             </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>mulesoft-releases</id>
-                    <name>mulesoft release repository</name>
-                    <layout>default</layout>
-                    <url>https://repository.mulesoft.org/releases/</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>mulesoft-ee</id>
-                    <name>MuleSoft EE Repository</name>
-                    <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
-                </pluginRepository>
-            </pluginRepositories>
         </profile>
     </profiles>
-    <activeProfiles>
-        <activeProfile>baseProfile</activeProfile>
-    </activeProfiles>
 </settings>
