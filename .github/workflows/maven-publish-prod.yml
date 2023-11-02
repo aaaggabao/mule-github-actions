@@ -1,37 +1,10 @@
-# name: Sandbox - Build and Deploy
-
-# on:
-#   push:
-#     branches: master
-# #normally you wouldn't be deploying master branch pushes to Sandbox,
-# #but we're keeping things simple! 😁
-
-# jobs:
-#   buildAndDeploy:
-#     runs-on: ubuntu-latest
-#     steps:
-# #first, we need to checkout our mule application's code
-#       - name: Checkout repository
-#         uses: actions/checkout@v2
-#       - name: Build and deploy artifact to sandbox
-# #run the maven deploy lifecycle. The -B indicated a batch process,
-# #which reduces the amount of logging the deployment does
-#         run: mvn -B deploy -DmuleDeploy -s .maven/settings.xml
-# #Pass in the secrets we need for deployment as environment variables
-#         env:
-#           PLATFORM_USERNAME: ${{ secrets.PLATFORM_USERNAME }}
-#           PLATFORM_PASSWORD: ${{ secrets.PLATFORM_PASSWORD }}
-#           SANDBOX_CLIENT_ID: ${{ secrets.SANDBOX_CLIENT_ID }}
-#           SANDBOX_CLIENT_SECRET: ${{ secrets.SANDBOX_CLIENT_SECRET }}
-#           BUS_GROUP_ID: ${{ secrets.BUS_GROUP_ID }}
-
-name: Build and Deploy to Sandbox
+name: Build and Deploy to QA Environment
 
 on:
   push:
-    branches: [master]
+    branches: [develop]
   pull_request:
-    branches: [master]
+    branches: [develop]
 
 jobs:
   test:
@@ -57,6 +30,11 @@ jobs:
           nexus_password: ${{ secrets.nexus_password }}
           KEY: ${{ secrets.decryption_key }}
         run: mvn test --settings .maven/settings.xml -Dsecure.key="$KEY"
+      - name: Upload MUnit reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: munit-test-reports
+          path: target/site/munit/coverage/
 
   build:
     needs: test
@@ -117,4 +95,5 @@ jobs:
            -Dmule.artifact=$artifactName \
            -Danypoint.username="$USERNAME" \
            -Danypoint.password="$PASSWORD" \
-           -Ddecryption.key="$KEY"
+           -Ddecryption.key="$KEY" \
+           -Denv="QA"
